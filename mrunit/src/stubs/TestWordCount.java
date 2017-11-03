@@ -1,8 +1,12 @@
 package stubs;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
+
 import org.apache.hadoop.mrunit.mapreduce.MapDriver;
 import org.apache.hadoop.mrunit.mapreduce.MapReduceDriver;
 import org.apache.hadoop.mrunit.mapreduce.ReduceDriver;
@@ -58,7 +62,11 @@ public class TestWordCount {
      * For this test, the mapper's input will be "1 cat cat dog" 
      * TODO: implement
      */
-    fail("Please implement test.");
+    //fail("Please implement test.");
+	  mapDriver.withInput(new LongWritable(0), new Text("cat dog"));
+	  mapDriver.withOutput(new Text("cat"), new IntWritable(1));
+	  mapDriver.withOutput(new Text("dog"), new IntWritable(1));
+	  mapDriver.runTest();
 
   }
 
@@ -73,8 +81,10 @@ public class TestWordCount {
      * The expected output is "cat 2".
      * TODO: implement
      */
-    fail("Please implement test.");
-
+    //fail("Please implement test.");
+	  reduceDriver.withInput(new Text("cat"), Arrays.asList(new IntWritable(1), new IntWritable(1)));
+	  reduceDriver.withOutput(new Text("cat"), new IntWritable(2));
+	  reduceDriver.runTest();
   }
 
 
@@ -89,7 +99,11 @@ public class TestWordCount {
      * The expected output (from the reducer) is "cat 2", "dog 1". 
      * TODO: implement
      */
-    fail("Please implement test.");
-
+    //fail("Please implement test.");
+	  mapReduceDriver.withInput(new LongWritable(0), new Text("dog cat"));
+	  mapReduceDriver.withInput(new LongWritable(0), new Text("cat dog"));
+	  mapReduceDriver.withOutput(new Text("cat"), new IntWritable(2));
+	  mapReduceDriver.withOutput(new Text("dog"), new IntWritable(2));
+	  mapReduceDriver.runTest();
   }
 }
