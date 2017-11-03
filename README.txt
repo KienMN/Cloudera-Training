@@ -18,3 +18,5 @@ hadoop fs -ls [outputDir]
 hadoop fs -cat [outputDir/fileName]
 
 Project: mrunit
+File: TestWordCount.java
+Add 3 tests (for mapper, reducer, and mapper&reducer) together to TestWordCount.java
