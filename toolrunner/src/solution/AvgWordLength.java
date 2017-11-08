@@ -1,4 +1,5 @@
 package solution;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
@@ -13,17 +14,19 @@ import org.apache.hadoop.util.ToolRunner;
 
 public class AvgWordLength extends Configured implements Tool {
 	public static void main(String[] args) throws Exception {
-		int exitCode = ToolRunner.run(new Configuration(), new AvgWordLength(), args);
+		int exitCode = ToolRunner.run(new Configuration(), new AvgWordLength(),
+				args);
 		System.exit(exitCode);
-  	}
-	
+	}
+
 	@Override
 	public int run(String[] args) throws Exception {
 		/*
 		 * Validate that two arguments were passed from the command line.
 		 */
 		if (args.length != 2) {
-			System.out.printf("Usage: AvgWordLength <input dir> <output dir>\n");
+			System.out
+					.printf("Usage: AvgWordLength <input dir> <output dir>\n");
 			return -1;
 		}
 
@@ -31,29 +34,29 @@ public class AvgWordLength extends Configured implements Tool {
 		 * Pass parameters at runtime (command line)
 		 */
 		Configuration conf = this.getConf();
-		
+
 		/*
 		 * Pass parameters programmatically
 		 */
-		
-//		Configuration conf = new Configuration();
-//		conf.setBoolean("caseSensitive", true);
-		
+
+		// Configuration conf = new Configuration();
+		// conf.setBoolean("caseSensitive", true);
+
 		/*
-		 * Instantiate a Job object for your job's configuration. 
+		 * Instantiate a Job object for your job's configuration.
 		 */
 		Job job = new Job(conf);
 
 		/*
 		 * Specify the jar file that contains your driver, mapper, and reducer.
-		 * Hadoop will transfer this jar file to nodes in your cluster running 
+		 * Hadoop will transfer this jar file to nodes in your cluster running
 		 * mapper and reducer tasks.
 		 */
 		job.setJarByClass(AvgWordLength.class);
 
 		/*
-		 * Specify an easily-decipherable name for the job.
-		 * This job name will appear in reports and logs.
+		 * Specify an easily-decipherable name for the job. This job name will
+		 * appear in reports and logs.
 		 */
 		job.setJobName("Average Word Length");
 
@@ -70,11 +73,10 @@ public class AvgWordLength extends Configured implements Tool {
 		job.setOutputValueClass(DoubleWritable.class);
 
 		/*
-		 * Start the MapReduce job and wait for it to finish.
-		 * If it finishes successfully, return 0. If not, return 1.
+		 * Start the MapReduce job and wait for it to finish. If it finishes
+		 * successfully, return 0. If not, return 1.
 		 */
 		boolean success = job.waitForCompletion(true);
 		return success ? 0 : 1;
 	}
 }
-
