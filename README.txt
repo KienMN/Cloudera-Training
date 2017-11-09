@@ -38,3 +38,8 @@ Project: combiner
 File: WordCountDriver.java
 Set input, output paths, set output key and value class, set mapper, reducer, combiner class for the job (in run method)
 Execute .JAR file as usual
+
+Lecture 05
+Project: toolrunner
+Terminal:
+hadoop jar [.JAR file] [package.driveClass] -DcaseSensitive=true/false -fs=file:/// -jt=local [local input dir] [local output dir]
